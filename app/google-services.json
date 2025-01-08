@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1080055597095",
+    "project_id": "pamd-be2be",
+    "storage_bucket": "pamd-be2be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080055597095:android:115c1aaefdbc48cb632602",
+        "android_client_info": {
+          "package_name": "com.example.tugas13"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA16X8T03bpphzAENit8V4gSDRxVIno1hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

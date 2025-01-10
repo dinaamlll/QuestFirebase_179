@@ -10,10 +10,9 @@ object PenyediaViewModel {
     val Factory = viewModelFactory {
         initializer { HomeViewModel(AplikasiMahasiswa().container.mahasiswaRepository) }
 
-        initializer { InsertViewModel(Mhs().container.repositoryMhs) }
+        initializer { InsertViewModel(AplikasiMahasiswa().container.mahasiswaRepository) }
+    }
 }
-
 
     fun CreationExtras.AplikasiMahasiswa(): MahasiswaApplications =
         (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]as MahasiswaApplications)
-}

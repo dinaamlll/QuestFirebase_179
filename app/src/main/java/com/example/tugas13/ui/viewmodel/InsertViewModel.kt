@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tugas13.model.Mahasiswa
 import com.example.tugas13.repository.MahasiswaRepository
 import kotlinx.coroutines.launch
 
@@ -88,5 +89,22 @@ data class FormErrorState(
         return nim == null && nama == null && jenisKelamin == null && alamat == null && kelas == null && angkatan == null &&
     }
 }
+//data class Variabel yang menyimpan data input form
+data class MahasiswaEvent(
+    val nim: String = "",
+    val nama: String = "",
+    val jenisKelamin: String = "",
+    val alamat: String = "",
+    val kelas: String = "",
+    val angkatan: String = ""
+)
 
-}
+//Menyimpan input form ke dalam entity
+fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
+    nim = nim,
+    nama = nama,
+    jenisKelamin = jenisKelamin,
+    alamat = alamat,
+    kelas = kelas,
+    angkatan = angkatan
+)

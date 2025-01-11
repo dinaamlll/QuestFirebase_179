@@ -70,7 +70,7 @@ fun HomeScreen(
             homeUiState = viewModel.mhsUIState,
             retryAction = {viewModel.getMhs()}, modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick,onDeleteClick = {
-                viewModel.getMhs()
+                viewModel.deleteMhs(it)
             }
         )
     }
@@ -80,7 +80,7 @@ fun HomeStatus(
     homeUiState: HomeUiState,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier,
-    onDeleteClick: (String) -> Unit = {},
+    onDeleteClick: (Mahasiswa) -> Unit = {},
     onDetailClick: (String) -> Unit
 ){
     when (homeUiState){
@@ -103,7 +103,7 @@ fun HomeStatus(
 @Composable
 fun OnLoading(modifier: Modifier = Modifier){
    Column (
-       modifier.fillMaxSize(),
+       modifier = Modifier.fillMaxSize(),
        verticalArrangement = Arrangement.Center,
        horizontalAlignment = Alignment.CenterHorizontally
    )
@@ -130,7 +130,7 @@ fun MhsLayout(
     mahasiswa: List<Mahasiswa>,
     modifier: Modifier = Modifier,
     onDetailClick:(Mahasiswa)->Unit,
-    onDeleteClick: (String) -> Unit = {}
+    onDeleteClick: (Mahasiswa) -> Unit = {}
 ){
     LazyColumn(
         modifier = modifier,
@@ -144,7 +144,7 @@ fun MhsLayout(
                     .fillMaxWidth()
                     .clickable { onDetailClick(mahasiswa) },
                 onDeleteClick ={
-                    onDeleteClick(it)
+                    onDeleteClick(mahasiswa)
                 }
             )
 

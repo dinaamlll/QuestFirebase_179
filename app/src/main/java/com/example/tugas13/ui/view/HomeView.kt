@@ -55,15 +55,11 @@ fun HomeScreen(
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    LaunchedEffect(Unit) {
-        viewModel.getMhs()
-    }
-
     Scaffold (
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = { Text("HOME") }
+                title = { Text("home") }
             )
         },
         floatingActionButton = {
@@ -81,7 +77,6 @@ fun HomeScreen(
             retryAction = {viewModel.getMhs()}, Modifier.padding(innerPadding),
             onDetailClick = onDetailClick, onDeleteClick = {
                 viewModel.deleteMhs(it)
-                viewModel.getMhs()
             }
         )
     }
@@ -96,35 +91,22 @@ fun HomeStatus(
     onDeleteClick: (Mahasiswa) -> Unit = {},
     onDetailClick: (String) -> Unit = {}
 ) {
-    var deleteConfirm by remember { mutableStateOf<Mahasiswa?>(null) }
 
     when (homeUiState) {
         is HomeUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
-        is HomeUiState.Success -> {
+        is HomeUiState.Success ->
             MhsLayout(
                 mahasiswa = homeUiState.mahasiswa,
                 modifier = modifier.fillMaxWidth(),
                 onDetailClick = {
                     onDetailClick(it.nim)
                 },
-                onDeleteClick = { mahasiswa ->
-                    deleteConfirm = mahasiswa  // Menyimpan mahasiswa yang ingin dihapus
+                onDeleteClick= {
+                    onDeleteClick(it)
                 }
             )
 
-            // Dialog Konfirmasi Penghapusan
-            deleteConfirm?.let { data ->
-                DeleteConfirmationDialog(
-                    onDeleteConfirm = {
-                        onDeleteClick(data)
-                        deleteConfirm = null
-                    },
-                    onDeleteCancel = {
-                        deleteConfirm = null
-                    }
-                )
-            }
-        }
+
         is HomeUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize(),
             message = homeUiState.exception.message ?: "ERROR")
     }
@@ -162,7 +144,7 @@ fun MhsLayout(
     mahasiswa: List<Mahasiswa>,
     modifier: Modifier = Modifier,
     onDetailClick: (Mahasiswa) -> Unit,
-    onDeleteClick: (Mahasiswa) -> Unit
+    onDeleteClick: (Mahasiswa) -> Unit = {}
 ) {
     LazyColumn(
         modifier = modifier,
@@ -230,25 +212,3 @@ fun MhsCard(
     }
 }
 
-@Composable
-private fun DeleteConfirmationDialog (
-    onDeleteConfirm: () -> Unit,
-    onDeleteCancel: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    AlertDialog(onDismissRequest = { /* Do nothing */ },
-        title = { Text("Delete Data") },
-        text = { Text("Apakah anda yakin ingin menghapus data?") },
-        modifier = modifier,
-        dismissButton = {
-            TextButton(onClick = onDeleteCancel) {
-                Text(text = "Cancel")
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDeleteConfirm) {
-                Text(text = "Yes")
-            }
-        }
-    )
-}

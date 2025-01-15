@@ -54,8 +54,11 @@ fun HomeScreen(
     viewModel : HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-
+    LaunchedEffect(Unit) {
+        viewModel.getMhs()
+    }
     Scaffold (
+
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
@@ -77,6 +80,7 @@ fun HomeScreen(
             retryAction = {viewModel.getMhs()}, Modifier.padding(innerPadding),
             onDetailClick = onDetailClick, onDeleteClick = {
                 viewModel.deleteMhs(it)
+                viewModel.getMhs()
             }
         )
     }
@@ -201,7 +205,7 @@ fun MhsCard(
             }
 
             Text(
-                text = mahasiswa.kelas,
+                text = mahasiswa.judul_skripsi,
                 style = MaterialTheme.typography.titleMedium
             )
             Text(

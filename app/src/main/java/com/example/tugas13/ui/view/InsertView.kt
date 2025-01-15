@@ -142,11 +142,12 @@ fun InsertMhsView(
                         color = Color.White,
                         modifier = Modifier
                             .size(20.dp)
-                            .padding(end = 8.dp)
+                            .padding(end = 6.dp)
                     )
                     Text("Loading...")
                 }else {
                     Text("Add")
+
                 }
             }
         }
@@ -176,9 +177,58 @@ fun FormMahasiswa(
         )
         Text(
             text = errorState.nama ?: "",
+            modifier = Modifier.fillMaxWidth(),
             color = Color.Red
         )
-
+        Spacer(modifier = Modifier.height(1.dp))
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.judul_skripsi,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(judul_skripsi = it))
+            },
+            label = { Text("Judul Skripsi") },
+            isError = errorState.judul_skripsi != null,
+            placeholder = { Text("Masukkan Judul Skripsi") },
+        )
+        Text(
+            text = errorState.judul_skripsi ?: "",
+            modifier = Modifier.fillMaxWidth(),
+            color = Color.Red
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dosen1,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(dosen1 = it))
+            },
+            label = { Text("Dosen 1") },
+            isError = errorState.dosen1 != null,
+            placeholder = { Text("Masukkan Dosen Pembimbing 1") },
+        )
+        Text(
+            text = errorState.dosen1 ?: "",
+            modifier = Modifier.fillMaxWidth(),
+            color = Color.Red
+        )
+        Spacer(modifier = Modifier.height(1.dp))
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dosen2,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(dosen2 = it))
+            },
+            label = { Text("Dosen 2") },
+            isError = errorState.dosen2 != null,
+            placeholder = { Text("Masukkan Dosen Pembimbing 2") },
+        )
+        Text(
+            text = errorState.dosen2 ?: "",
+            color = Color.Red,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(0.5.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.nim,
@@ -191,8 +241,7 @@ fun FormMahasiswa(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(text = errorState.nim ?: "", color = Color.Red)
-
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(0.5.dp))
         Text(text = "Jenis Kelamin")
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -218,7 +267,7 @@ fun FormMahasiswa(
             text = errorState.jenis_kelamin ?: "",
             color = Color.Red
         )
-
+        Spacer(modifier = Modifier.height(0.5.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.alamat,
@@ -230,8 +279,7 @@ fun FormMahasiswa(
             placeholder = { Text("Masukkan alamat") },
         )
         Text(text = errorState.alamat ?: "", color = Color.Red)
-
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(1.dp))
         Text(text = "Kelas")
         Row {
             kelas.forEach { kls ->
@@ -253,7 +301,7 @@ fun FormMahasiswa(
             text = errorState.kelas ?: "",
             color = Color.Red
         )
-
+        Spacer(modifier = Modifier.height(1.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.angkatan,
@@ -266,5 +314,6 @@ fun FormMahasiswa(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(text = errorState.angkatan ?: "", color = Color.Red)
+        Spacer(modifier = Modifier.height(1.dp))
     }
 }
